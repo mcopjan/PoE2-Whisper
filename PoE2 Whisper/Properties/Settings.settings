@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PoE2_Whisper.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PoEClientLogLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files (x86)\Grinding Gear Games\Path of Exile 2\logs\Client.txt</Value>
+    </Setting>
+    <Setting Name="WhisperRegEx" Type="System.String" Scope="User">
+      <Value Profile="(Default)">@From\s+([^:]+):\s*(.+)$</Value>
+    </Setting>
+    <Setting Name="PushBulletToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PushBulletDeviceName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>
