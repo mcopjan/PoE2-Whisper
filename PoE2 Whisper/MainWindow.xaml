@@ -6,53 +6,59 @@
         xmlns:local="clr-namespace:PoE2Whisper"
         mc:Ignorable="d"
         Title="PoE2 Whisper" Height="450" Width="800">
-    <!--Background="{DynamicResource WindowBackground}"-->
-    <!--Foreground="{DynamicResource WindowForeground}">-->
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <!-- Menu -->
             <RowDefinition Height="*" />
-            <!-- Log area -->
             <RowDefinition Height="Auto" />
-            <!-- Version -->
         </Grid.RowDefinitions>
 
         <Menu VerticalAlignment="Top" HorizontalAlignment="Stretch">
             <MenuItem Header="Configuration">
                 <MenuItem Header="Settings" Click="OpenSettingsWindow"/>
                 <Separator/>
-                <MenuItem Header="Windows Notifications" Name="WinNotificationsMenuItem">
-                    <MenuItem.Icon>
-                        <CheckBox IsChecked="False" Click="WindowsNotificationsCheckbox_Click" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Click="OpenExternalNotificationsWindow" Name="ExtNotificationsMenuItem">
-                    <MenuItem.Header>
-                        <TextBlock Text="External Notifications" 
-                                   Foreground="Blue" 
-                                   TextDecorations="Underline" 
-                                   Cursor="Hand" />
-                    </MenuItem.Header>
-                    <MenuItem.Icon>
-                        <CheckBox IsChecked="False" Click="ExternalNotificationsCheckbox_Click" />
-                    </MenuItem.Icon>
+                <MenuItem Header="Notifications">
+                    <MenuItem.Items>
+                        <MenuItem Name="WinNotificationsMenuItem">
+                            <MenuItem.Header>
+                                <TextBlock Text="Windows Notifications"/>
+                            </MenuItem.Header>
+                            <MenuItem.Icon>
+                                <CheckBox IsChecked="False" Click="WindowsNotificationsCheckbox_Click" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Name="ExtNotificationsMenuItem">
+                            <MenuItem.Icon>
+                                <CheckBox IsChecked="False" Click="ExternalNotificationsCheckbox_Click" />
+                            </MenuItem.Icon>
+                            <MenuItem.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>
+                                        <Hyperlink NavigateUri="https://www.pushbullet.com/" RequestNavigate="Hyperlink_RequestNavigate">
+                                            External (Pushbullet) Notifications
+                                        </Hyperlink>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </MenuItem.HeaderTemplate>
+                        </MenuItem>
+                    </MenuItem.Items>
                 </MenuItem>
                 <Separator/>
                 <MenuItem Header="Close" Click="CloseMainWindow"/>
             </MenuItem>
         </Menu>
 
-        <TextBox Grid.Row="1" Margin="10,10,10,0" Name="LogTextBox" 
-                 VerticalScrollBarVisibility="Auto" 
-                 HorizontalScrollBarVisibility="Auto" 
-                 IsReadOnly="True" />
-        
+        <TextBox Grid.Row="1" Margin="10,10,10,0" Name="LogTextBox"
+         VerticalScrollBarVisibility="Auto"
+         HorizontalScrollBarVisibility="Auto"
+         IsReadOnly="True"
+         Background="#282c34"  Foreground="White"      BorderBrush="#3e4451"   AcceptsReturn="True"     TextWrapping="Wrap"></TextBox>
+
         <StackPanel Grid.Row="2" Margin="0,5,10,5" HorizontalAlignment="Right" Orientation="Horizontal">
             <TextBlock x:Name="VersionLabel" Text="Version: 1.0.0" VerticalAlignment="Center" />
             <Image Source="Assets/greencircle48.png" Height="16" Width="16" Margin="5,0,0,0" VerticalAlignment="Center" Name="CircleIcon"/>
         </StackPanel>
     </Grid>
 </Window>
-

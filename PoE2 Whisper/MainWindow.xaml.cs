@@ -1,26 +1,16 @@
 ﻿using PoE2_Whisper;
 using PoE2_Whisper.Services;
 using Poe2Notify.Services;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
-using Windows.Devices.HumanInterfaceDevice;
-using Path = System.IO.Path;
 
 namespace PoE2Whisper
 {
@@ -38,6 +28,7 @@ namespace PoE2Whisper
         private readonly WindowsNotificationService _windowsNotifications;
         private readonly PushBulletService _pushBulletService;
         private bool _isLogFileOpenedForTheFirstTime = true;
+        TimeSpan checkWhispersInterval = TimeSpan.FromSeconds(10); //every 10s
 
 
         public string DefaultLogFilePath => PoE2_Whisper.Properties.Settings.Default.PoEClientLogLocation;
@@ -92,38 +83,51 @@ namespace PoE2Whisper
             }
         }
 
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("explorer.exe", e.Uri.AbsoluteUri));
+            e.Handled = true;
+        }
+
         private void InitializeTimer()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(10); // Set the interval to 10 seconds
+            timer.Interval = checkWhispersInterval;
             timer.Tick += Timer_Tick;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            string content = ReadNewLines(DefaultLogFilePath);
-            Match match = Regex.Match(content, WhisperRegexPattern, RegexOptions.Multiline);
-
-            if (match.Success)
+            try
             {
-                Console.WriteLine("Name: " + match.Groups[1].Value);      // Output: TheFoolThatDoesntBelong
-                Console.WriteLine("Message: " + match.Groups[2].Value);   // Output: sorry not 8
+                string content = ReadNewLines(DefaultLogFilePath);
+                Match match = Regex.Match(content, WhisperRegexPattern, RegexOptions.Multiline);
 
-
-                LogTextBox.Text += $"Match found: {match.Value}{Environment.NewLine}";
-
-                // Implement your logic for Windows and/or External notifications here
-                if (isWindowsNotificationsEnabled)
+                if (match.Success)
                 {
-                    _windowsNotifications.ShowNotification("PoE2 Whisper", $"From {match.Groups[1].Value}: {match.Groups[2].Value}");
-                }
+                    Console.WriteLine("Name: " + match.Groups[1].Value);      // Output: TheFoolThatDoesntBelong
+                    Console.WriteLine("Message: " + match.Groups[2].Value);   // Output: sorry not 8
 
-                if (isExternalNotificationsEnabled)
-                {
-                    //_pushBulletService.ShowNotification("o.PzrT0tjfdk7BeApPDXThc1UryQ3wOXiS", "Samsung SM-F946B", $"PoE2 Whisper -> From {match.Groups[1].Value}: {match.Groups[2].Value}");
-                    _pushBulletService.ShowNotification(PushbulletAccessToken, PushbulletDeviceName, $"PoE2 Whisper -> From {match.Groups[1].Value}: {match.Groups[2].Value}");
+
+                    LogTextBox.Text += $"Match found: {match.Value}{Environment.NewLine}";
+
+                    // Implement your logic for Windows and/or External notifications here
+                    if (isWindowsNotificationsEnabled)
+                    {
+                        _windowsNotifications.ShowNotification("PoE2 Whisper", $"From {match.Groups[1].Value}: {match.Groups[2].Value}");
+                    }
+
+                    if (isExternalNotificationsEnabled)
+                    {
+                        _pushBulletService.ShowNotification(PushbulletAccessToken, PushbulletDeviceName, $"PoE2 Whisper -> From {match.Groups[1].Value}: {match.Groups[2].Value}");
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                LogTextBox.Text += $"An error occured while processing notifications: {ex.Message}{Environment.NewLine}";
+            }
+            
         }
 
         public long GetFileLength(string filePath)
@@ -135,9 +139,7 @@ namespace PoE2Whisper
             }
             catch (IOException ex)
             {
-                // Log the error (optional, based on your needs)
-                // Console.WriteLine($"An error occured while getting file length: {ex.Message}");
-                return -1; // Or throw an exception if you prefer
+                throw new Exception($"Could not get length of file {ex.Message}");
             }
         }
 
