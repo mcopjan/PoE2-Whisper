@@ -13,15 +13,26 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Menu VerticalAlignment="Top" HorizontalAlignment="Stretch">
-            <MenuItem Header="Configuration">
-                <MenuItem Header="Settings" Click="OpenSettingsWindow"/>
-                <Separator/>
-                <MenuItem Header="Notifications">
-                    <MenuItem.Items>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
+            <Button Name="SettingsButton" Click="OpenSettingsWindow" ToolTip="Settings">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <Image Source="/Assets/settings48.png" Height="40" Width="40" />
+            </Button>
+            <Button Name="NotificationsButton" Click="Click_NotificationsButton" ToolTip="Notifications" Margin="5,0,0,0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <Button.ContextMenu>
+                    <ContextMenu Name="NotificationsContextMenu" Placement="Relative" PlacementRectangle="0,24,0,0">
                         <MenuItem Name="WinNotificationsMenuItem">
                             <MenuItem.Header>
-                                <TextBlock Text="Windows Notifications"/>
+                                <TextBlock Text="Windows Notifications" />
                             </MenuItem.Header>
                             <MenuItem.Icon>
                                 <CheckBox IsChecked="False" Click="WindowsNotificationsCheckbox_Click" />
@@ -29,36 +40,52 @@
                         </MenuItem>
                         <MenuItem Name="ExtNotificationsMenuItem">
                             <MenuItem.Icon>
-                                <CheckBox IsChecked="False" Click="ExternalNotificationsCheckbox_Click" />
+                                <CheckBox IsChecked="False" Name="ExternalNotificationsCheckbox" Click="ExternalNotificationsCheckbox_Click"/>
                             </MenuItem.Icon>
                             <MenuItem.HeaderTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock>
-                                        <Hyperlink NavigateUri="https://www.pushbullet.com/" RequestNavigate="Hyperlink_RequestNavigate">
-                                            External (Pushbullet) Notifications
-                                        </Hyperlink>
+                                <Hyperlink NavigateUri="https://www.pushbullet.com/" RequestNavigate="Hyperlink_RequestNavigate">
+                                    External (Pushbullet) Notifications
+                                </Hyperlink>
                                         </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </MenuItem.HeaderTemplate>
                         </MenuItem>
-                    </MenuItem.Items>
-                </MenuItem>
-                <Separator/>
-                <MenuItem Header="Close" Click="CloseMainWindow"/>
-            </MenuItem>
-        </Menu>
+                    </ContextMenu>
+                </Button.ContextMenu>
+                <Image Source="/Assets/notification48.png" Height="40" Width="40" />
+            </Button>
+            <Button Name="ClearButton" Click="Click_ClearButton" ToolTip="Clear Text Area" Margin="5,0,0,0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <Image Source="/Assets/sweep48.png" Height="40" Width="40" />
+            </Button>
+            <Button Name="CloseButton" Click="Click_CloseButton" ToolTip="Close" Margin="5,0,0,0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <Image Source="/Assets/close48.png" Height="40" Width="40" />
+            </Button>
+        </StackPanel>
 
-        <TextBox Grid.Row="1" Margin="10,10,10,0" Name="LogTextBox"
-         VerticalScrollBarVisibility="Auto"
-         HorizontalScrollBarVisibility="Auto"
-         IsReadOnly="True"
-         Background="#282c34"  Foreground="White"      BorderBrush="#3e4451"   AcceptsReturn="True"     TextWrapping="Wrap"></TextBox>
+        <TextBox Grid.Row="1" Margin="10,0,10,0" Name="LogTextBox"
+                 VerticalScrollBarVisibility="Auto"
+                 HorizontalScrollBarVisibility="Auto"
+                 IsReadOnly="True"
+                 Background="#282c34" Foreground="White" BorderBrush="#3e4451"
+                 AcceptsReturn="True" TextWrapping="Wrap" />
 
         <StackPanel Grid.Row="2" Margin="0,5,10,5" HorizontalAlignment="Right" Orientation="Horizontal">
             <TextBlock x:Name="VersionLabel" Text="Version: 1.0.0" VerticalAlignment="Center" />
-            <Image Source="Assets/greencircle48.png" Height="16" Width="16" Margin="5,0,0,0" VerticalAlignment="Center" Name="CircleIcon"/>
+            <Image Source="/Assets/greencircle48.png" Height="16" Width="16" Margin="5,0,0,0" VerticalAlignment="Center" Name="CircleIcon" />
         </StackPanel>
     </Grid>
 </Window>

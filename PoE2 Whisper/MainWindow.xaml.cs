@@ -63,7 +63,7 @@ namespace PoE2Whisper
             {
                 CircleIcon.Source = new BitmapImage(new Uri("Assets/orangecircle48.png", UriKind.Relative));
                 CircleIcon.ToolTip = new ToolTip { Content = $"Notifications disabled." };
-                LogTextBox.Text += $"File '{DefaultLogFilePath}' found. Enable notifications. {Environment.NewLine}";
+                LogTextBox.Text += $"File '{DefaultLogFilePath}' found. Please enable notifications in Settings. {Environment.NewLine}";
                 WinNotificationsMenuItem.IsEnabled = true;
                 ExtNotificationsMenuItem.IsEnabled = true;
                 return true;
@@ -180,11 +180,18 @@ namespace PoE2Whisper
             }
         }
 
-        private void OpenExternalNotificationsWindow(object sender, RoutedEventArgs e)
+        private void Click_NotificationsButton(object sender, RoutedEventArgs e)
         {
-            ExternalNotificationsWindow externalNotificationsWindow = new ExternalNotificationsWindow();
-            externalNotificationsWindow.Show();
+            NotificationsContextMenu.PlacementTarget = NotificationsButton; 
+            NotificationsContextMenu.IsOpen = true;
         }
+
+        private void Click_ClearButton(object sender, RoutedEventArgs e)
+        {
+            LogTextBox.Clear();
+        }
+
+        
 
         private void WindowsNotificationsCheckbox_Click(object sender, RoutedEventArgs e)
         {
@@ -220,7 +227,7 @@ namespace PoE2Whisper
             settingsWindow.ShowDialog();
         }
 
-        private void CloseMainWindow(object sender, RoutedEventArgs e)
+        private void Click_CloseButton(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

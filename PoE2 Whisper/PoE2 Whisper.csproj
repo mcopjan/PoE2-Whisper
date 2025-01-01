@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	<UseWPF>true</UseWPF>
+	<ApplicationIcon>notification.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +17,12 @@
     <None Remove="Assets\orangecircle48.png" />
     <None Remove="Assets\redcircle48.png" />
     <None Remove="Assets\settings48.png" />
+    <None Remove="Assets\sweep48.png" />
     <None Remove="Assets\sweep50.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="notification.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,7 +44,7 @@
     <Resource Include="Assets\settings48.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\sweep50.png">
+    <Resource Include="Assets\sweep48.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
