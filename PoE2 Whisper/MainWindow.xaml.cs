@@ -105,8 +105,8 @@ namespace PoE2Whisper
 
                 if (match.Success)
                 {
-                    Console.WriteLine("Name: " + match.Groups[1].Value);      // Output: TheFoolThatDoesntBelong
-                    Console.WriteLine("Message: " + match.Groups[2].Value);   // Output: sorry not 8
+                    Console.WriteLine("Name: " + match.Groups[1].Value);      // match name of a person sending a whisper
+                    Console.WriteLine("Message: " + match.Groups[2].Value);   // match a message
 
 
                     LogTextBox.Text += $"Match found: {match.Value}{Environment.NewLine}";

@@ -10,19 +10,35 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\close48.png" />
     <None Remove="Assets\greencircle48.png" />
+    <None Remove="Assets\notification48.png" />
     <None Remove="Assets\orangecircle48.png" />
     <None Remove="Assets\redcircle48.png" />
+    <None Remove="Assets\settings48.png" />
+    <None Remove="Assets\sweep50.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\close48.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\greencircle48.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\notification48.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\orangecircle48.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\redcircle48.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\settings48.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\sweep50.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
